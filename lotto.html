@@ -128,7 +128,29 @@
             </nav>
         </header>
 
-        <main>로또와 가이바위보 들어가는 자리</main>
+        <main>
+            <button onclick="generateLottoNumbers()">로또 번호 생성</button>
+            <p id="lottoNumbers"></p>
+
+            <script id="lottoStyle">
+                function generateLottoNumbers() {
+                    var lottoNumbers = [];
+                    while (lottoNumbers.length < 6) {
+                        var randomNumber = Math.floor(Math.random() * 45) + 1;
+                        if (lottoNumbers.indexOf(randomNumber) === -1) {
+                            lottoNumbers.push(randomNumber);
+                        }
+                    }
+
+                    lottoNumbers.sort(function (a, b) {
+                        return a - b;
+                    });
+
+                    document.getElementById("lottoNumbers").innerText =
+                        lottoNumbers.join(", ");
+                }
+            </script>
+        </main>
 
         <footer class="footer">
             <hr />
