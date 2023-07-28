@@ -146,6 +146,7 @@
         <main>
             <div class="container">
                 <div class="row justify-content-around">
+                    <h1>가위바위보 게임</h1>
                     <div
                         class="card"
                         style="width: 18rem"
@@ -156,17 +157,12 @@
                             alt="Card image cap"
                         />
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                            <h5 class="card-title">당신</h5>
                             <p class="card-text">
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
+                                <button id="rock">바위</button>
+                                <button id="paper">보</button>
+                                <button id="scissors">가위</button>
                             </p>
-                            <a
-                                href="#"
-                                class="btn btn-primary"
-                                >Go somewhere</a
-                            >
                         </div>
                     </div>
                     <div
@@ -180,7 +176,38 @@
                         />
                         <div class="card-body">
                             <h5 class="card-title">심판</h5>
-                            <p class="card-text">해설</p>
+                            <p class="card-text">
+                                <p id="result"></p>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#rock, #paper, #scissors").click(function () {
+                                            var userChoice = $(this).text();
+                                            var computerChoice = computerPick();
+                                            var result = compareChoices(userChoice, computerChoice);
+                                            $("#result").text(result);
+                                        });
+                    
+                                        function computerPick() {
+                                            var choices = ["가위", "바위", "보"];
+                                            return choices[Math.floor(Math.random() * 3)];
+                                        }
+                    
+                                        function compareChoices(user, computer) {
+                                            if (user === computer) {
+                                                return "비겼습니다.";
+                                            } else if (
+                                                (user === "가위" && computer === "보") ||
+                                                (user === "바위" && computer === "가위") ||
+                                                (user === "보" && computer === "바위")
+                                            ) {
+                                                return "이겼습니다!";
+                                            } else {
+                                                return "졌습니다.";
+                                            }
+                                        }
+                                    });
+                                </script>
+                            </p>
                         </div>
                     </div>
                     <div
@@ -193,56 +220,16 @@
                             alt="Card image cap"
                         />
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
+                            <h5 class="card-title">컴퓨터</h5>
                             <p class="card-text">
                                 Some quick example text to build on the card
                                 title and make up the bulk of the card's
                                 content.
                             </p>
-                            <a
-                                href="#"
-                                class="btn btn-primary"
-                                >Go somewhere</a
-                            >
                         </div>
                     </div>
                 </div>
             </div>
-
-            <h1>가위바위보 게임</h1>
-            <button id="rock">바위</button>
-            <button id="paper">보</button>
-            <button id="scissors">가위</button>
-            <p id="result"></p>
-            <script>
-                $(document).ready(function () {
-                    $("#rock, #paper, #scissors").click(function () {
-                        var userChoice = $(this).text();
-                        var computerChoice = computerPick();
-                        var result = compareChoices(userChoice, computerChoice);
-                        $("#result").text(result);
-                    });
-
-                    function computerPick() {
-                        var choices = ["가위", "바위", "보"];
-                        return choices[Math.floor(Math.random() * 3)];
-                    }
-
-                    function compareChoices(user, computer) {
-                        if (user === computer) {
-                            return "비겼습니다.";
-                        } else if (
-                            (user === "가위" && computer === "보") ||
-                            (user === "바위" && computer === "가위") ||
-                            (user === "보" && computer === "바위")
-                        ) {
-                            return "이겼습니다!";
-                        } else {
-                            return "졌습니다.";
-                        }
-                    }
-                });
-            </script>
         </main>
 
         <footer class="footer">
