@@ -40,6 +40,42 @@
                 font-size: 20px;
                 margin-top: 20px;
             }
+
+            #lottoNumbers {
+                margin-top: 20px;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .lotto-number {
+                display: inline-block;
+                width: 3em;
+                height: 3em;
+                padding: 30px;
+                margin: 10px;
+                font-size: 2.5em;
+                color: #fff;
+                border-radius: 100%;
+            }
+
+            .number-1 {
+                background-color: #f44336;
+            } /* 빨간색 */
+            .number-2 {
+                background-color: #2196f3;
+            } /* 파란색 */
+            .number-3 {
+                background-color: #4caf50;
+            } /* 녹색 */
+            .number-4 {
+                background-color: #ffc107;
+            } /* 노란색 */
+            .number-5 {
+                background-color: #9c27b0;
+            } /* 보라색 */
+            .number-6 {
+                background-color: #ff5722;
+            } /* 주황색 */
         </style>
     </head>
     <body
@@ -160,6 +196,7 @@
             <p id="lottoNumbers"></p>
 
             <script id="lottoStyle">
+                // 로또 번호 생성 함수
                 function generateLottoNumbers() {
                     var lottoNumbers = [];
                     while (lottoNumbers.length < 6) {
@@ -173,8 +210,17 @@
                         return a - b;
                     });
 
-                    document.getElementById("lottoNumbers").innerText =
-                        lottoNumbers.join(", ");
+                    var lottoNumbersContainer =
+                        document.getElementById("lottoNumbers");
+                    lottoNumbersContainer.innerHTML = "";
+
+                    for (var i = 0; i < lottoNumbers.length; i++) {
+                        var numberElement = document.createElement("span");
+                        numberElement.className =
+                            "lotto-number number-" + (i + 1);
+                        numberElement.innerText = lottoNumbers[i];
+                        lottoNumbersContainer.appendChild(numberElement);
+                    }
                 }
             </script>
         </main>
