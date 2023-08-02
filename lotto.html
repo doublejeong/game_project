@@ -6,7 +6,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0"
         />
-        <title>Document</title>
+        <title>로또</title>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -16,35 +16,6 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                text-align: center;
-            }
-
-            h1 {
-                margin-top: 50px;
-            }
-
-            button {
-                padding: 10px 20px;
-                font-size: 16px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                cursor: pointer;
-            }
-
-            button:hover {
-                background-color: #0056b3;
-            }
-
-            p {
-                font-size: 20px;
-                margin-top: 20px;
-            }
-
-            #lottoNumbers {
-                margin-top: 20px;
-                font-size: 18px;
-                font-weight: bold;
             }
 
             .lotto-number {
@@ -53,29 +24,12 @@
                 height: 3em;
                 padding: 30px;
                 margin: 10px;
-                font-size: 2.5em;
+                font-size: 3em;
+                text-align: center;
+                font-weight: bold;
                 color: #fff;
                 border-radius: 100%;
             }
-
-            .number-1 {
-                background-color: #f44336;
-            } /* 빨간색 */
-            .number-2 {
-                background-color: #2196f3;
-            } /* 파란색 */
-            .number-3 {
-                background-color: #4caf50;
-            } /* 녹색 */
-            .number-4 {
-                background-color: #ffc107;
-            } /* 노란색 */
-            .number-5 {
-                background-color: #9c27b0;
-            } /* 보라색 */
-            .number-6 {
-                background-color: #ff5722;
-            } /* 주황색 */
         </style>
     </head>
     <body
@@ -86,8 +40,8 @@
                 <div class="container-fluid">
                     <a
                         class="navbar-brand"
-                        href="#"
-                        >게임</a
+                        href="/index.html"
+                        >게임 홈</a
                     >
                     <button
                         class="navbar-toggler"
@@ -123,54 +77,6 @@
                                     >가위바위보</a
                                 >
                             </li>
-                            <li class="nav-item dropdown">
-                                <a
-                                    class="nav-link dropdown-toggle"
-                                    href="#"
-                                    id="navbarScrollingDropdown"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    Link
-                                </a>
-                                <ul
-                                    class="dropdown-menu"
-                                    aria-labelledby="navbarScrollingDropdown"
-                                >
-                                    <li>
-                                        <a
-                                            class="dropdown-item"
-                                            href="#"
-                                            >Action</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a
-                                            class="dropdown-item"
-                                            href="#"
-                                            >Another action</a
-                                        >
-                                    </li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li>
-                                        <a
-                                            class="dropdown-item"
-                                            href="#"
-                                            >Something else here</a
-                                        >
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link disabled"
-                                    href="#"
-                                    tabindex="-1"
-                                    aria-disabled="true"
-                                    >Link</a
-                                >
-                            </li>
                         </ul>
                         <form class="d-flex">
                             <input
@@ -192,42 +98,78 @@
         </header>
 
         <main>
-            <button onclick="generateLottoNumbers()">로또 번호 생성</button>
+            <!-- 생성된 로또 번호를 나타내는 영역 -->
             <p id="lottoNumbers"></p>
 
             <script id="lottoStyle">
                 // 로또 번호 생성 함수
                 function generateLottoNumbers() {
-                    var lottoNumbers = [];
+                    var lottoNumbers = []; // 배열 생성
                     while (lottoNumbers.length < 6) {
+                        //중복되지 않는 랜덤 수 생성
                         var randomNumber = Math.floor(Math.random() * 45) + 1;
                         if (lottoNumbers.indexOf(randomNumber) === -1) {
                             lottoNumbers.push(randomNumber);
                         }
                     }
-
+                    // 번호를 오름차순으로 정렬
                     lottoNumbers.sort(function (a, b) {
                         return a - b;
                     });
-
+                    // 로또 번호를 표시할 영역을 선택
                     var lottoNumbersContainer =
                         document.getElementById("lottoNumbers");
+                    // 영역의 내용을 초기화
                     lottoNumbersContainer.innerHTML = "";
 
+                    // 생성된 로또 번호를 순회하며 화면에 추가
                     for (var i = 0; i < lottoNumbers.length; i++) {
+                        // span 요소를 생성
                         var numberElement = document.createElement("span");
+                        // 로또 번호를 표시하는 클래스를 추가
                         numberElement.className =
                             "lotto-number number-" + (i + 1);
+                        // 로또 번호를 span 요소에 추가
                         numberElement.innerText = lottoNumbers[i];
+                        // span 요소를 영역에 추가
                         lottoNumbersContainer.appendChild(numberElement);
+
+                        // 숫자 범위에 따라 다른 배경색을 적용
+                        var backgroundColor = getColorByRange(lottoNumbers[i]);
+                        numberElement.style.backgroundColor = backgroundColor;
+                    }
+                }
+
+                // 숫자 범위에 따라 배경색을 바꿔주는 함수
+                function getColorByRange(number) {
+                    if (number >= 1 && number <= 9) {
+                        return "red";
+                    } else if (number >= 10 && number <= 19) {
+                        return "orange";
+                    } else if (number >= 20 && number <= 29) {
+                        return "yellow";
+                    } else if (number >= 30 && number <= 39) {
+                        return "green";
+                    } else {
+                        return "blue";
                     }
                 }
             </script>
+            <br />
+
+            <!-- 버튼 생성 -->
+            <button
+                type="button"
+                class="btn btn-outline-dark"
+                onclick="generateLottoNumbers()"
+            >
+                로또 번호 생성
+            </button>
         </main>
 
         <footer class="footer">
             <hr />
-            꼬릿말
+            © 2023 IT 2기 정정수
         </footer>
     </body>
 </html>
